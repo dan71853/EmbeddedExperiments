@@ -6,11 +6,13 @@
 - [Options to Buy](#options-to-buy)
     - [I2C](#i2c)
     - [SPI](#spi)
+- [EPROM](#eprom)
     - [Extra](#extra)
     - [Final Order](#final-order)
 - [More Research](#more-research)
     - [I2C 24LC256I](#i2c-24lc256i)
     - [SPI 25LC256](#spi-25lc256)
+    - [Parallel EPROM M27C512](#parallel-eprom-m27c512)
 - [Project Ideas](#project-ideas)
 
 # Questions
@@ -53,15 +55,25 @@ Will get [24LC256I SOP8](https://www.aliexpress.com/item/1005006918590140.html).
 25LC256 (25LC256-I/P), cant find a dip package on Aliexpress.
 Will get the [25LC256](https://www.aliexpress.com/item/1005006706668024.html) in the sop-8 package.
 
+# EPROM
+Will get some EPROM just to experiment a bit. Found [M27C512](https://www.aliexpress.com/item/1005009205345368.html), [Datasheet](https://media.digikey.com/pdf/data%20sheets/st%20microelectronics%20pdfs/m27c512.pdf). This will be good to play with a parallel data bus.
+
+Note: it is only 5V so might need a level shifter.
+
 ### Extra 
 Will get some [adapter boards](https://www.aliexpress.com/item/1005007636152533.html).
+
+[Level shifter](https://www.aliexpress.com/item/1005009385587772.html), [Datasheet](https://www.ti.com/lit/ds/symlink/txs0108e.pdf). Bidirectional and can go from 3.3V to 5V.  
 
 Will need some resistors for address and pullup resistors, and some capacitors for decoupling. I already have these.
 
 ### Final Order
 - 10 x [I2C 24LC256I SOP8](https://www.aliexpress.com/item/1005006918590140.html) [Datasheet](https://ww1.microchip.com/downloads/en/devicedoc/21203m.pdf)
 - 5 x [SPI 25LC256 SOP8](https://www.aliexpress.com/item/1005006706668024.html) [Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/20005715A.pdf)
-- 20 x [Adapter Boards](https://www.aliexpress.com/item/1005007636152533.html)
+- 20 x [Adapter Boards](https://www.aliexpress.com/item/1005007636152533.html) [Datasheet](https://media.digikey.com/pdf/data%20sheets/st%20microelectronics%20pdfs/m27c512.pdf)
+- 5 x [M27C512](https://www.aliexpress.com/item/1005009205345368.html)
+- 3 x [Level shifter](https://www.aliexpress.com/item/1005009385587772.html)
+  
 
 # More Research
 Have decided on the 24LC256I and 25LC256. These are both 256 KB of memory and in a SOP8 package. Both are 3.3V compatible.
@@ -94,6 +106,13 @@ Looks like the device supports both 0 and 3 SPI modes, I will want to do some mo
 The write enable is software controlled through the status register, unlike the pin on the I2C version. But there is also a hold function which I want to better understand.
 
 Need to test max read and write speeds.
+
+### Parallel EPROM M27C512
+[Datasheet](https://media.digikey.com/pdf/data%20sheets/st%20microelectronics%20pdfs/m27c512.pdf), Looks like there is an output enable and a chip enable. 
+
+It is 5V so make sure a level shifter is used.
+Will need to do a lot of research into how to use this. Will do this when it arrives. 
+
 
 # Project Ideas
 
