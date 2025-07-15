@@ -11,6 +11,7 @@ A link to the project will be added at the top of the idea in this document.
     - [State Machines](#state-machines)
     - [RISC-V](#risc-v)
   - [Communication](#communication)
+    - [Edge Connector](#edge-connector)
   - [Displays \& UI](#displays--ui)
     - [Displays](#displays)
   - [Hardware Interfaces](#hardware-interfaces)
@@ -31,6 +32,8 @@ A link to the project will be added at the top of the idea in this document.
 ## Communication
 <!-- ### Serial, RF, CAN, wireless protocols -->
 
+### Edge Connector
+
 ## Displays & UI
 <!-- ### LCDs, OLEDs, LED matrices -->
 ### Displays
@@ -40,7 +43,7 @@ A link to the project will be added at the top of the idea in this document.
 <!-- ### I²C, SPI, UART, GPIO, ADC, etc. -->
 
 ## Memory and Storage
-<!-- ### EEPROM, flash, RAM -->
+<!-- , flash, RAM -->
 ### EEPROM
 See [EEPROM](Projects/Memory_and_Storage/EEPROM/README.md) for the project.
 
@@ -61,7 +64,7 @@ See [EEPROM](Projects/Memory_and_Storage/EEPROM/README.md) for the project.
 <!-- ### Buttons, switches, temperature sensors, etc. -->
 
 ## Actuators & Outputs
-<!-- ### Motors, servos, LEDs, buzzers -->
+<!--  servos, LEDs, buzzers -->
 
 ### Motors
 
