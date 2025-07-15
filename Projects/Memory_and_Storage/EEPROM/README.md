@@ -7,6 +7,10 @@
     - [I2C](#i2c)
     - [SPI](#spi)
     - [Extra](#extra)
+    - [Final Order](#final-order)
+- [More Research](#more-research)
+    - [I2C 24LC256I](#i2c-24lc256i)
+    - [SPI 25LC256](#spi-25lc256)
 - [Project Ideas](#project-ideas)
 
 # Questions
@@ -52,11 +56,50 @@ Will get the [25LC256](https://www.aliexpress.com/item/1005006706668024.html) in
 ### Extra 
 Will get some [adapter boards](https://www.aliexpress.com/item/1005007636152533.html).
 
+Will need some resistors for address and pullup resistors, and some capacitors for decoupling. I already have these.
 
+### Final Order
+- 10 x [I2C 24LC256I SOP8](https://www.aliexpress.com/item/1005006918590140.html) [Datasheet](https://ww1.microchip.com/downloads/en/devicedoc/21203m.pdf)
+- 5 x [SPI 25LC256 SOP8](https://www.aliexpress.com/item/1005006706668024.html) [Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/20005715A.pdf)
+- 20 x [Adapter Boards](https://www.aliexpress.com/item/1005007636152533.html)
 
+# More Research
+Have decided on the 24LC256I and 25LC256. These are both 256 KB of memory and in a SOP8 package. Both are 3.3V compatible.
 
+Both are made by microchip, these are essential the same chip but one is I2C and the other is SPI. This should make for a good comparison.
+
+### I2C 24LC256I
+This will need pullup resistors on the clock and data lines. 
+
+There is the Write Protect pin, this would be good to see in action. Tieing it LOW or leaving it floating will enable normal operations.
+
+The address will also need to be set, this can be done by tieing the address pins to high or low.
+It has a 7-bit address, the 4 MSB bits are hardcoded, the rest are set by the pins. `1 0 1 0 A2 A1 A0`.
+
+Will look more into the I2C protocol when making the software, want to look at the paging, acknowledge polling and Contiguous Addressing.
+
+For reading look at the difference between random and sequential reads
+
+The LC version should go up to 400 kHz clock speed. I will test this, I want to see how this translates to read and write speeds. How does the write cycle delay time effect this speed.
+
+### SPI 25LC256
+This is very similar to the I2C version. This has a 10 MHz clock, I want to see how much faster this is compared to the I2C version. This also has a 5 ms write time so the write speed is probably not much faster.
+
+SPI is a bit different to I2C, the SPI version has a list of instructions to say when to read or write. As SPI does not have a read or write bit like I2C. 
+But there is more than just read and write, there is actually a status register that is not available on the I2C version. I want to see if this status register can be used.
+
+Looks like the device supports both 0 and 3 SPI modes, I will want to do some more tests on these to better understand the difference. 
+[Here](https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html) is some more information on the modes.
+
+The write enable is software controlled through the status register, unlike the pin on the I2C version. But there is also a hold function which I want to better understand.
+
+Need to test max read and write speeds.
 
 # Project Ideas
 
+Start out with reading and writing simple data on a breadboard.
+
+
 Want to make a [drive from VOTV](https://voicesofthevoid.wiki.gg/wiki/Drive). 
 This would contain information like a file name, signal level and possible the audio data itself.
+Would also want to add RGB LEDs, a battery and possibly look at board edge connectors.
