@@ -2,14 +2,15 @@
 
 This is a collection of ideas, it will have a brief discusion on each new idea. When the idea gets big enough to be made into a project, a folder will be created where the project will continue.
 
-Note the question on this page are not final and can be changed when a project is started. The questions will only be updated in the respective projects page.
+Note the question on this page are not final and can be changed when a project is started. The questions will only be updated in the respective research page.
 
-A link to the project will be added at the top of the idea in this document.
+
 
 - [Ideas](#ideas)
   - [Architecture](#architecture)
     - [State Machines](#state-machines)
     - [RISC-V](#risc-v)
+    - [RTOS](#rtos)
   - [Communication](#communication)
     - [Edge Connector](#edge-connector)
   - [Displays \& UI](#displays--ui)
@@ -17,7 +18,8 @@ A link to the project will be added at the top of the idea in this document.
   - [Hardware Interfaces](#hardware-interfaces)
   - [Memory and Storage](#memory-and-storage)
     - [EEPROM](#eeprom)
-  - [Power \& Analog](#power--analog)
+  - [Power](#power)
+    - [Batteries](#batteries)
   - [Sensors \& Inputs](#sensors--inputs)
   - [Actuators \& Outputs](#actuators--outputs)
     - [Motors](#motors)
@@ -29,6 +31,8 @@ A link to the project will be added at the top of the idea in this document.
 <!-- ### RISC-V, ARM, instruction sets -->
 ### State Machines
 ### RISC-V
+### RTOS
+https://www.youtube.com/playlist?list=PLEBQazB0HUyQ4hAPU1cJED6t3DU0h34bz
 ## Communication
 <!-- ### Serial, RF, CAN, wireless protocols -->
 
@@ -45,7 +49,7 @@ A link to the project will be added at the top of the idea in this document.
 ## Memory and Storage
 <!-- , flash, RAM -->
 ### EEPROM
-See [EEPROM](Projects/Memory_and_Storage/EEPROM/README.md) for the project.
+See [EEPROM](Research/Memory_and_Storage/EEPROM/README.md) for the more.
 
 - Why use EEPROM?
   - When is EEPROM better?
@@ -57,9 +61,18 @@ See [EEPROM](Projects/Memory_and_Storage/EEPROM/README.md) for the project.
 - Is this different to internal memory on an microcontroller?
 - How to check data integrity 
   
-## Power & Analog
-<!-- ### Voltage regulation, battery power, analog signals -->
+## Power
+<!-- ### Voltage regulation -->
+### Batteries
 
+See [Batteries](Research/Power/Batteries/README.md) for the more.
+
+- What options are good for home projects?
+  - Li-Po, Li-ion, other lithium and non lithium.
+- How to safely charge and monitor batteries?
+- How to boost up to 5V or safely power a 3.3V MCU?
+- Is it safe to constantly charge?
+  
 ## Sensors & Inputs
 <!-- ### Buttons, switches, temperature sensors, etc. -->
 
