@@ -6,7 +6,7 @@
 - [Options to Buy](#options-to-buy)
     - [I2C](#i2c)
     - [SPI](#spi)
-- [EPROM](#eprom)
+    - [EPROM](#eprom)
     - [Extra](#extra)
     - [Final Order](#final-order)
 - [More Research](#more-research)
@@ -55,7 +55,7 @@ Will get [24LC256I SOP8](https://www.aliexpress.com/item/1005006918590140.html).
 25LC256 (25LC256-I/P), cant find a dip package on Aliexpress.
 Will get the [25LC256](https://www.aliexpress.com/item/1005006706668024.html) in the sop-8 package.
 
-# EPROM
+### EPROM
 Will get some EPROM just to experiment a bit. Found [M27C512](https://www.aliexpress.com/item/1005009205345368.html), [Datasheet](https://media.digikey.com/pdf/data%20sheets/st%20microelectronics%20pdfs/m27c512.pdf). This will be good to play with a parallel data bus.
 
 Note: it is only 5V so might need a level shifter.
@@ -70,8 +70,8 @@ Will need some resistors for address and pullup resistors, and some capacitors f
 ### Final Order
 - 10 x [I2C 24LC256I SOP8](https://www.aliexpress.com/item/1005006918590140.html) [Datasheet](https://ww1.microchip.com/downloads/en/devicedoc/21203m.pdf)
 - 5 x [SPI 25LC256 SOP8](https://www.aliexpress.com/item/1005006706668024.html) [Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/20005715A.pdf)
-- 20 x [Adapter Boards](https://www.aliexpress.com/item/1005007636152533.html) [Datasheet](https://media.digikey.com/pdf/data%20sheets/st%20microelectronics%20pdfs/m27c512.pdf)
-- 5 x [M27C512](https://www.aliexpress.com/item/1005009205345368.html)
+- 20 x [Adapter Boards](https://www.aliexpress.com/item/1005007636152533.html) 
+- 5 x [M27C512](https://www.aliexpress.com/item/1005009205345368.html) [Datasheet](https://media.digikey.com/pdf/data%20sheets/st%20microelectronics%20pdfs/m27c512.pdf)
 - 3 x [Level shifter](https://www.aliexpress.com/item/1005009385587772.html)
   
 
