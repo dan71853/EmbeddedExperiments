@@ -18,6 +18,8 @@ Note the question on this page are not final and can be changed when a project i
   - [Hardware Interfaces](#hardware-interfaces)
   - [Memory and Storage](#memory-and-storage)
     - [EEPROM](#eeprom)
+    - [NOR Flash](#nor-flash)
+    - [Other Non Volatile Storage](#other-non-volatile-storage)
   - [Power](#power)
     - [Batteries](#batteries)
   - [Sensors \& Inputs](#sensors--inputs)
@@ -49,7 +51,7 @@ https://www.youtube.com/playlist?list=PLEBQazB0HUyQ4hAPU1cJED6t3DU0h34bz
 ## Memory and Storage
 <!-- , flash, RAM -->
 ### EEPROM
-See [EEPROM](Research/Memory_and_Storage/EEPROM/README.md) for the more.
+See [EEPROM](Research/Memory_and_Storage/EEPROM/README.md) for more info.
 
 - Why use EEPROM?
   - When is EEPROM better?
@@ -61,6 +63,18 @@ See [EEPROM](Research/Memory_and_Storage/EEPROM/README.md) for the more.
 - Is this different to internal memory on an microcontroller?
 - How to check data integrity 
   
+### NOR Flash
+See [NOR and NAND Flash](Research/Memory_and_Storage/NOR_NAND_Flash/README.md) for more info.
+
+- What is NOR Flash?
+- What is NAND Flash?
+- HOW are NOR and NAND different?
+- How are they different to EEPROM?
+- When to use each type?
+
+### Other Non Volatile Storage
+See [Other Non Volatile Storage](Research/Memory_and_Storage/Other_Non_Volatile_Storage/README.md) for more info.
+
 ## Power
 <!-- ### Voltage regulation -->
 ### Batteries
