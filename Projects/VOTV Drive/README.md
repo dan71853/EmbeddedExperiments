@@ -4,11 +4,15 @@
 - [VOTV Drive Project](#votv-drive-project)
 - [Linked Research](#linked-research)
 - [Overview](#overview)
-- [Goals](#goals)
+- [Specifications](#specifications)
 - [Plan](#plan)
+  - [Dimensions](#dimensions)
   - [Memory](#memory)
   - [LEDs](#leds)
   - [Battery](#battery)
+  - [Main Connector](#main-connector)
+  - [USB-C PC](#usb-c-pc)
+  - [Motor](#motor)
 
 # Linked Research
 - [EEPROM](/Research/Memory_and_Storage/EEPROM/README.md)
@@ -33,17 +37,25 @@ The blue lights on the top indicate what level the signal has been processed to,
 
 The drives get plugged into a few machines, here it is plugged into the processing unit, I will call this the master device. The master unit can then read or write data to the drive. 
 
-# Goals
+<img src="./Images/Ref-Drive_papercraft.jpg" width="600"/>
 
+A discord by the name of v made this image on the VOTV discord, this will be useful in creating a 3D model.
+
+# Specifications
 - Create a drive that can store a small audio file.
-- Be able to set the LED state.
-- Have some battery to keep the LEDs lit.
+- Be able to set the LED colours.
+- Have a battery to keep the LEDs lit.
 - Have an easy way to slot the drive into a master device.
+- Have a way to charge the battery using USB-C PD.
+- Have the tape wheels spin when the device is plugged in.
 
 # Plan
 
-## Memory
+## Dimensions
+Using the drawing provided by Atomic Boyfriend, the size of the drive is 75H 153L 26W mm.
 
+
+## Memory
 There are a few options for memory, but these can be split into 2 categories; </Br> 
 Volatile and Non-Volatile. 
 
@@ -66,4 +78,14 @@ The biggest power draw will be the LEDs, the datasheet states that the LEDs are 
 The LEDs are the majority of the power draw so the EEPROM can be ignored. This gives a current draw of 80mA.</Br>
 I have a salvaged CR123A battery, this is a non rechargeable battery, this should be 1500mAh but Im unsure of the current charge. Assuming fully charged then it will last around 37 hours of continuous use. This rules out non rechargeable batteries.
 
+Will go with a [503450 Li-Po](https://www.aliexpress.com/item/1005004697145807.html) as I already have this.
+
+## Main Connector
+There will be the main connector where the drive plugs into the master device, this will have data and 5V for charging the battery.
+
+## USB-C PC
+There might also be a secondary USB-C plug for charging the device separately. I will need to look at making sure that both the USB and the main connector can have power at the same time without back-feeding into each other.
+
+## Motor
+Will need some sort of motor to drive the tape wheels. I looked at small DC motors but i couldn't find any small and slow enough. 
 

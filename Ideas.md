@@ -22,9 +22,10 @@ Note the question on this page are not final and can be changed when a project i
     - [Other Non Volatile Storage](#other-non-volatile-storage)
   - [Power](#power)
     - [Batteries](#batteries)
-  - [Sensors \& Inputs](#sensors--inputs)
-  - [Actuators \& Outputs](#actuators--outputs)
+  - [Sensors and Inputs](#sensors-and-inputs)
+  - [Actuators and Outputs](#actuators-and-outputs)
     - [Motors](#motors)
+    - [Stepper Motors](#stepper-motors)
   - [Timing \& Scheduling](#timing--scheduling)
 
 
@@ -79,7 +80,7 @@ See [Other Non Volatile Storage](Research/Memory_and_Storage/Other_Non_Volatile_
 <!-- ### Voltage regulation -->
 ### Batteries
 
-See [Batteries](Research/Power/Batteries/README.md) for the more.
+See [Batteries](Research/Power/Batteries/README.md) for more info.
 
 - What options are good for home projects?
   - Li-Po, Li-ion, other lithium and non lithium.
@@ -87,13 +88,19 @@ See [Batteries](Research/Power/Batteries/README.md) for the more.
 - How to boost up to 5V or safely power a 3.3V MCU?
 - Is it safe to constantly charge?
   
-## Sensors & Inputs
+## Sensors and Inputs
 <!-- ### Buttons, switches, temperature sensors, etc. -->
 
-## Actuators & Outputs
+## Actuators and Outputs
 <!--  servos, LEDs, buzzers -->
 
 ### Motors
+### Stepper Motors
+See [Stepper Motors](Research/Actuators_and_Outputs/Stepper_Motors/README.md) for more info.
+
+- What are the different types?
+- How to drive them?
+- How small can they get?
 
 ## Timing & Scheduling
 <!-- ### Timers, delays, debouncing, real-time tasks -->
