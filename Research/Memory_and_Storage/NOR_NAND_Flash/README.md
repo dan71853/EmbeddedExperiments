@@ -23,6 +23,8 @@ NOR is faster to read but slower to write. NAND has a higher capacity.
 
 Because NAND Flash is a much higher density, its hard to find in small packages. It doesn't usually use SPI so the pin density it often quite high.
 
+https://youtu.be/GmSQMHzKIMY
+
 # Options to Buy
 [NOR FLASH GD25Q32](https://www.aliexpress.com/w/wholesale-GD25Q32.html?g=y&SearchText=GD25Q32&selectedSwitches=filterCode%3Achoice_atm)
 
