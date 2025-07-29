@@ -32,9 +32,37 @@ Will need some diodes to handle any back emf, as some motor drivers don't have i
 
 https://www.youtube.com/watch?v=hYk9Um9bdCY
 
+## 555 Timer Clock
+Will use a 555 timer with an adjustable resistor to drive the stepper motor.
 
+I want the motor to turn at around 20rpm. For the 18deg motor the step frequency will need to be 6.67Hz, and for the 3.75deg motor the step frequency will need to be 32Hz.
+
+As this is full step then the motor step frequency matches the clock frequency.
+
+The equation for the 555 timer is:
+$$
+f = \frac{1.44}{(R_A + 2R_B) \cdot C}
+$$
+
+- C=10μF
+- RA=1kΩ
+- RB=10kΩ potentiometer in series with 1 kΩ resistor
+
+This should give a range of 5 to 40Hz.
 
 # Options to Buy
 
+## Stepper Motors
+
 - [Tiny 8mm Stepper Motor](https://www.aliexpress.com/item/1005009362113907.html), [More info](https://makerselectronics.com/product/micro-miniature-stepper-motor-8mm-2-phase-4-wire-with-copper-gear-for-camera-lenses/)
 - [SP-35RC-810S Stepper](https://www.aliexpress.com/item/1005005485719628.html) [More info page 6](https://moatech.com/skin/board/gallery_pdt/catalog_2016.pdf)
+- [DC 5V 28BYJ-48 Reduction Step Motor](https://www.aliexpress.com/item/1005007204939435.html)
+
+## Logic ICs
+- [555 Timer](https://www.aliexpress.com/item/1005003650068859.html)
+- [SN74LS04 Not Gate](https://www.aliexpress.com/item/1005004557749624.html)
+- [SN74LS86 Quad 2-input XOR](https://www.aliexpress.com/item/1005004557749624.html)
+- [CD4017 Decade Counter](https://www.aliexpress.com/item/1005007115853609.html)
+- [WH06-2-103 (10K) Pot](https://www.aliexpress.com/item/1005005124101452.html)
+- [Dual H-Bridge MX1508](https://www.aliexpress.com/item/1005008067737983.html)
+- [SOP16 to DIP](https://www.aliexpress.com/item/1005006438595084.html)
