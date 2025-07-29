@@ -25,3 +25,7 @@ https://youtu.be/OtXMNKVyA8E
 
 [NiMH](https://youtu.be/5B1sX7p5xXI)
 [LiFePo4/NiMH](https://youtu.be/5yFwhWeqyq4)
+
+https://youtu.be/7hRdjePx1dA
+
+https://www.best-microcontroller-projects.com/tp4056-page2.html
