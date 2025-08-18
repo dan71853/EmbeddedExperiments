@@ -53,3 +53,25 @@ I set up 8 LEDs on the data bus, this showed the expected codes, so this EPROM i
 
 ## Retrieve Data With Microcontroller
 The next test will be to connect the address and data lines to a microcontroller. 
+
+Care needs to be taken because the EPROM is 5V and most of my microcontrollers are 3.3V.
+The original plan was to use level shifters however there was some issue with them.
+Instead I used a Arduino Pro Micro, this has 18 GPIO pins, this means that I cant access all the addresses, only the first 8 bits.
+I will just tie the 8 MSBs to ground for now while I get the programming code ready.
+
+### Reading Data
+This is achieved with a simple for loop that increments the address then reads the data bus.
+
+Steps for reading data:
+- Set address bits
+- Enable Chip
+- Enable gate and wait 60ns
+- Read data lines 
+- Disable gate and chip
+
+The code can be found in [Code/ReadEPROM](./Code/ReadEPROM/ReadEPROM.ino).
+
+This loops over the lowest 256 bytes in memory and prints it out, all the data is 1 which means it has been erased. 
+The next step will b to program some data onto it.
+
+
