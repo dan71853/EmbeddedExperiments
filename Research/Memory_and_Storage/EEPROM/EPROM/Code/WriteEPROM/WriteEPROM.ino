@@ -26,71 +26,58 @@ const uint8_t ADDR_PIN_7 = 10;
 const uint8_t ADDR_PINS[] = { ADDR_PIN_0, ADDR_PIN_1, ADDR_PIN_2, ADDR_PIN_3, ADDR_PIN_4, ADDR_PIN_5, ADDR_PIN_6, ADDR_PIN_7 };
 
 //Enable Pins
-const uint8_t EN_PIN = 8;       //Chip Enable, LOW to activate
-const uint8_t GATE_EN_PIN = 9;  //Gate Out Enable, LOW to activate
+const uint8_t EN_PIN = 8;  //Chip Enable, LOW to activate
+// const uint8_t GATE_EN_PIN = 9;  //Gate Out Enable, LOW to activate //Tied to 12V
 
 
 void setup() {
   Serial.begin(115200);
-delay(2000);
+
   Serial.println("Starting");
 
   //Setup both the data and address lines
   //Only uses 8 bit address
   for (uint8_t i = 0; i < 8; i++) {
-    pinMode(DATA_PINS[i], INPUT);
+    pinMode(DATA_PINS[i], OUTPUT);
     pinMode(ADDR_PINS[i], OUTPUT);
   }
 
   //Setup the chip and gate enable pins
   pinMode(EN_PIN, OUTPUT);
-  pinMode(GATE_EN_PIN, OUTPUT);
+  // pinMode(GATE_EN_PIN, OUTPUT);
 
   //Set high to disable
   digitalWrite(EN_PIN, 1);
-  digitalWrite(GATE_EN_PIN, 1);
-
-}
-
-void printData() {
-  for (uint8_t i = 0; i < 8; i++) {
-    Serial.print(digitalRead(DATA_PINS[7 - i]));
-  }
-
-  Serial.println('b');
+  // digitalWrite(GATE_EN_PIN, 1);
 }
 
 
 void setAddress(uint16_t addr) {
-    // Serial.print("addr: ");
-    // Serial.print(addr);
-    // Serial.print(' ');
   for (uint8_t i = 0; i < 8; i++) {
     digitalWrite(ADDR_PINS[i], (addr >> i) & 1);
-    // Serial.print((addr >> i) & 1);
-    // Serial.print(' ');
   }
-  // Serial.println();
+}
+
+void setData(uint16_t data) {
+  for (uint8_t i = 0; i < 8; i++) {
+    digitalWrite(DATA_PINS[i], (data >> i) & 1);
+  }
 }
 
 
 uint8_t addr = 1;
 
 void loop() {
+  digitalWrite(EN_PIN, 1);
+
   setAddress(addr);
-  digitalWrite(EN_PIN, 0); //Enable Chip
-  digitalWrite(GATE_EN_PIN, 0); //Enable Gate
-  delay(1);
+  setData(0b0101010101);
+  digitalWrite(EN_PIN, 0);  //Enable Chip
+  delayMicroseconds(100);
+  digitalWrite(EN_PIN, 1);
 
-  Serial.print("0x");
-  Serial.print(addr,HEX);
-  Serial.print(": ");
-  printData();
+  while (1)
+    ;
 
-  delay(500); //Split up the delay so the LEDs stay on
-  digitalWrite(EN_PIN, 1); //Enable Chip
-  digitalWrite(GATE_EN_PIN, 1); //Enable Gate
-  delay(500);
- 
   addr++;
 }

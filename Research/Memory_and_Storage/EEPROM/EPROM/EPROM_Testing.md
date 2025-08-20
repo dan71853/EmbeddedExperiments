@@ -74,4 +74,32 @@ The code can be found in [Code/ReadEPROM](./Code/ReadEPROM/ReadEPROM.ino).
 This loops over the lowest 256 bytes in memory and prints it out, all the data is 1 which means it has been erased. 
 The next step will b to program some data onto it.
 
+### Writing Data Attempt 1
+
+Writing data is a bit more complicated because of the voltages involved:
+
+```
+VCC = 6.25V ± 0.25V
+VPP = 12.75V ± 0.25V
+```
+I will use an adjustable power supply to create the 12.75V then use a buck converter to create the 6.25V.
+
+The GPIO pins of the arduino pro micro are max 6V, so to be safe I will reduce the buck voltage to 6V, this is still acceptable for the EPROM.
+To be extra safe I will only use the data pins to write data and will not read data. The datasheet recommends reading after every write but I will do it in chunks and will make sure to switch back to 5V when reading.
+
+I don't have an easy way to automatically set VPP, this will be powered on at the start. Vcc will be powered on at the same time.
+
+Steps for writing data:
+- Set Chip Enable High to disable it
+- Connect 6V then 12.75V to Vcc and Vpp
+- Set address bits
+- Set data for that address
+- Pulse chip enable low for 100us
+- Increment address and repeat
+
+I only tried to set one address at first, when the EPROM is erased all the bits are 1, so I tried to set the data at address zero to `0b01010101`. Reading back the data showed that all the bits were zero.
+
+Something is going wrong when setting the data. I think it is because of the timing of some of the signals. I was applying 12V manually and then resetting the microcontroller.
+
+
 
