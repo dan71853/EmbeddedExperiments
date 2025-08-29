@@ -27,7 +27,7 @@ Output Enable (<span style="text-decoration: overline;">G</span>) wil;l output d
 
 The EPROM uses a 16Bit address bus and an 8Bit data bus. I will probably just tie the 8MSB low for testing as 26 GPIO pins will be needed for the full address bus.
 
-## Fist Test
+## First Test
 
 Will start with reading the IDs.
 - First set Vcc to 5V.
@@ -74,6 +74,7 @@ The code can be found in [Code/ReadEPROM](./Code/ReadEPROM/ReadEPROM.ino).
 This loops over the lowest 256 bytes in memory and prints it out, all the data is 1 which means it has been erased. 
 The next step will b to program some data onto it.
 
+## Writing Data 
 ### Writing Data Attempt 1
 
 Writing data is a bit more complicated because of the voltages involved:
@@ -131,3 +132,13 @@ Here are the new steps for writing data:
 Will only test one address first to make sure it working.
 This worked well, all that needed to be changes was the data pins on the microcontroller were not set to INPUT so were conflicting with the EPROM pins when trying to read back the data.
 With this fixed the value of `01010101b` was written to address 2. 
+
+The next step is to write to all 256 address I have access to. This will just mean looping over the above steps while incrementing the address. For this test I will set the data equal to its address.
+
+I then modified the read code to print the data in hex so it was easy to compare to the address.
+Aside from the first couple of address that I messed up when testing, only one address (0x80) was corrupted. For some reason address 0x80 (128 or 0b10000000) had all its bits cleared. Im not sure what caused this to mess up, this might have happened during the initial testing when the voltage timing wasn't correct.
+
+## Erasing data
+
+This is done by exposing the chip to UV light. I don't have a UV light so I will use the sun. This is expected to take a week to fully erase. I will test it every few days to see it clearing.
+

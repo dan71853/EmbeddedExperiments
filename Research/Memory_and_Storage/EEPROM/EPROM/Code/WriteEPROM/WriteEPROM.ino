@@ -75,7 +75,7 @@ void printData() {
   Serial.println('b');
 }
 
-uint8_t addr = 2;
+uint8_t addr = 3;
 
 void loop() {
   digitalWrite(EN_PIN, 1);
@@ -88,7 +88,7 @@ void loop() {
 
 
   setAddress(addr);
-  setData(0b0101010101);
+  setData(addr);
 
   digitalWrite(EN_PIN, 0);  //Enable Chip
   delayMicroseconds(100);
@@ -116,8 +116,7 @@ void loop() {
 
 
 
-  while (1)
-    ;
+ 
 
   addr++;
 }

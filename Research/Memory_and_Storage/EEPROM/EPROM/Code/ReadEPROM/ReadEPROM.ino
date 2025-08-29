@@ -32,7 +32,7 @@ const uint8_t GATE_EN_PIN = 9;  //Gate Out Enable, LOW to activate
 
 void setup() {
   Serial.begin(115200);
-delay(2000);
+  delay(2000);
   Serial.println("Starting");
 
   //Setup both the data and address lines
@@ -49,10 +49,9 @@ delay(2000);
   //Set high to disable
   digitalWrite(EN_PIN, 1);
   digitalWrite(GATE_EN_PIN, 1);
-
 }
 
-void printData() {
+void printDataBin() {
   for (uint8_t i = 0; i < 8; i++) {
     Serial.print(digitalRead(DATA_PINS[7 - i]));
   }
@@ -61,10 +60,21 @@ void printData() {
 }
 
 
+uint8_t printDataHex() {
+  uint8_t data = 0;
+  for (uint8_t i = 0; i < 8; i++) {
+    data = data | (digitalRead(DATA_PINS[i])) << i;
+  }
+  Serial.print("0x");
+  Serial.println(data, HEX);
+  return data;
+}
+
+
 void setAddress(uint16_t addr) {
-    // Serial.print("addr: ");
-    // Serial.print(addr);
-    // Serial.print(' ');
+  // Serial.print("addr: ");
+  // Serial.print(addr);
+  // Serial.print(' ');
   for (uint8_t i = 0; i < 8; i++) {
     digitalWrite(ADDR_PINS[i], (addr >> i) & 1);
     // Serial.print((addr >> i) & 1);
@@ -78,18 +88,25 @@ uint8_t addr = 0;
 
 void loop() {
   setAddress(addr);
-  digitalWrite(EN_PIN, 0); //Enable Chip
-  digitalWrite(GATE_EN_PIN, 0); //Enable Gate
+  digitalWrite(EN_PIN, 0);       //Enable Chip
+  digitalWrite(GATE_EN_PIN, 0);  //Enable Gate
   delay(10);
   Serial.print("0x");
-  Serial.print(addr,HEX);
+  Serial.print(addr, HEX);
   Serial.print(": ");
-  printData();
+  uint8_t readData = printDataHex();
+  if (addr != readData) {
+    Serial.println("ERROR: incorrect data");
+  }
 
-  delay(500); //Split up the delay so the LEDs stay on
-  digitalWrite(EN_PIN, 1); //Enable Chip
-  digitalWrite(GATE_EN_PIN, 1); //Enable Gate
-  delay(500);
- 
+  delay(10);                     //Split up the delay so the LEDs stay on
+  digitalWrite(EN_PIN, 1);       //Enable Chip
+  digitalWrite(GATE_EN_PIN, 1);  //Enable Gate
+  delay(10);
+
+  if (addr == 0xFF) {
+    for (;;);
+  }
+
   addr++;
 }
