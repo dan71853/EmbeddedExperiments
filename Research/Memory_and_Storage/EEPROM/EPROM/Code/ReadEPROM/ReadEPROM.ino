@@ -74,14 +74,13 @@ void setAddress(uint16_t addr) {
 }
 
 
-uint8_t addr = 1;
+uint8_t addr = 0;
 
 void loop() {
   setAddress(addr);
   digitalWrite(EN_PIN, 0); //Enable Chip
   digitalWrite(GATE_EN_PIN, 0); //Enable Gate
-  delay(1);
-
+  delay(10);
   Serial.print("0x");
   Serial.print(addr,HEX);
   Serial.print(": ");
