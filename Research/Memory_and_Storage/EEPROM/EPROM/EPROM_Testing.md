@@ -102,4 +102,32 @@ I only tried to set one address at first, when the EPROM is erased all the bits 
 Something is going wrong when setting the data. I think it is because of the timing of some of the signals. I was applying 12V manually and then resetting the microcontroller.
 
 
+### Writing Data Attempt 2
 
+To fix the timing issues when applying 12V I will use a relay. A P-Channel MOSFET would have been better but I don't have any at hand.
+
+First I modified the reading code to work with the relay. As the nominally closed of the relay is tied to ground and nominally open is 5V, the logic of the code remains the same. All that is needed is a small 10ms delay after the relay pin is changed to make sure the slow relay has time to set to the correct state. 
+
+The next step is to modify the writing code to control the gate enable pin. I will also add code to read the data after a write.
+
+Here are the new steps for writing data:
+- Power Vcc with 6.25V
+- Set Chip Enable High to disable it
+- 1ms delay
+- Set gate enable to HIGH, this connects 12.75V to Vpp
+- 10ms Delay
+- Set data line as output
+- Set address bits
+- Set data for that address
+- Pulse chip enable low for 100us
+- 1ms delay
+- Set gate enable to LOW
+- 10ms delay
+- Set data line as input
+- Set Chip Enable to LOW
+- 1ms delay
+- Read data lines
+
+Will only test one address first to make sure it working.
+This worked well, all that needed to be changes was the data pins on the microcontroller were not set to INPUT so were conflicting with the EPROM pins when trying to read back the data.
+With this fixed the value of `01010101b` was written to address 2. 

@@ -26,8 +26,8 @@ const uint8_t ADDR_PIN_7 = 10;
 const uint8_t ADDR_PINS[] = { ADDR_PIN_0, ADDR_PIN_1, ADDR_PIN_2, ADDR_PIN_3, ADDR_PIN_4, ADDR_PIN_5, ADDR_PIN_6, ADDR_PIN_7 };
 
 //Enable Pins
-const uint8_t EN_PIN = 8;  //Chip Enable, LOW to activate
-// const uint8_t GATE_EN_PIN = 9;  //Gate Out Enable, LOW to activate //Tied to 12V
+const uint8_t EN_PIN = 8;       //Chip Enable, LOW to activate
+const uint8_t GATE_EN_PIN = 9;  //Gate Out Enable, LOW = 0V, High = 12.75V through relay
 
 
 void setup() {
@@ -44,11 +44,14 @@ void setup() {
 
   //Setup the chip and gate enable pins
   pinMode(EN_PIN, OUTPUT);
-  // pinMode(GATE_EN_PIN, OUTPUT);
+  pinMode(GATE_EN_PIN, OUTPUT);
 
   //Set high to disable
   digitalWrite(EN_PIN, 1);
-  // digitalWrite(GATE_EN_PIN, 1);
+
+  //Set LOW to remove 12V
+  digitalWrite(GATE_EN_PIN, 0);
+  delay(5000);
 }
 
 
@@ -64,17 +67,54 @@ void setData(uint16_t data) {
   }
 }
 
+void printData() {
+  for (uint8_t i = 0; i < 8; i++) {
+    Serial.print(digitalRead(DATA_PINS[7 - i]));
+  }
 
-uint8_t addr = 1;
+  Serial.println('b');
+}
+
+uint8_t addr = 2;
 
 void loop() {
   digitalWrite(EN_PIN, 1);
+  delay(1);
+  digitalWrite(GATE_EN_PIN, 1);
+  delay(10);
+  for (uint8_t i = 0; i < 8; i++) {
+    pinMode(DATA_PINS[i], OUTPUT);
+  }
+
 
   setAddress(addr);
   setData(0b0101010101);
+
   digitalWrite(EN_PIN, 0);  //Enable Chip
   delayMicroseconds(100);
   digitalWrite(EN_PIN, 1);
+  delay(1);
+
+  //Read back data
+  digitalWrite(GATE_EN_PIN, 0);
+  delay(10);
+
+  for (uint8_t i = 0; i < 8; i++) {
+    pinMode(DATA_PINS[i], INPUT);
+  }
+
+
+  digitalWrite(EN_PIN, 0);  //Enable Chip
+  Serial.print("0x");
+  Serial.print(addr, HEX);
+  Serial.print(": ");
+  printData();
+
+  delay(500);  //Split up the delay so the LEDs stay on
+  digitalWrite(EN_PIN, 1);
+  delay(500);
+
+
 
   while (1)
     ;
