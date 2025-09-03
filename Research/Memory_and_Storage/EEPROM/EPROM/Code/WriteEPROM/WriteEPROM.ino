@@ -29,11 +29,16 @@ const uint8_t ADDR_PINS[] = { ADDR_PIN_0, ADDR_PIN_1, ADDR_PIN_2, ADDR_PIN_3, AD
 const uint8_t EN_PIN = 8;       //Chip Enable, LOW to activate
 const uint8_t GATE_EN_PIN = 9;  //Gate Out Enable, LOW = 0V, High = 12.75V through relay
 
+//Data
+//Data will be limited to 256bits
+const char dataArray[] = { "Add Text Here" };
+uint16_t arrayLength = 0;
 
 void setup() {
   Serial.begin(115200);
 
   Serial.println("Starting");
+
 
   //Setup both the data and address lines
   //Only uses 8 bit address
@@ -51,7 +56,12 @@ void setup() {
 
   //Set LOW to remove 12V
   digitalWrite(GATE_EN_PIN, 0);
+
+  arrayLength = strlen(dataArray);
+  arrayLength = arrayLength > 255 ? 255 : arrayLength;  //Limit the data to 256 bits
+
   delay(5000);
+  // while(1);
 }
 
 
@@ -71,11 +81,18 @@ void printData() {
   for (uint8_t i = 0; i < 8; i++) {
     Serial.print(digitalRead(DATA_PINS[7 - i]));
   }
-
   Serial.println('b');
 }
 
-uint8_t addr = 3;
+void printDataChar() {
+  uint8_t data = 0;
+  for (uint8_t i = 0; i < 8; i++) {
+    data = data | (digitalRead(DATA_PINS[i])) << i;
+  }
+  Serial.println((char)data);
+}
+
+uint8_t addr = 0;
 
 void loop() {
   digitalWrite(EN_PIN, 1);
@@ -88,7 +105,7 @@ void loop() {
 
 
   setAddress(addr);
-  setData(addr);
+  setData((uint8_t)dataArray[addr]);
 
   digitalWrite(EN_PIN, 0);  //Enable Chip
   delayMicroseconds(100);
@@ -110,13 +127,16 @@ void loop() {
   Serial.print(": ");
   printData();
 
-  delay(500);  //Split up the delay so the LEDs stay on
+  delay(50);  //Split up the delay so the LEDs stay on
   digitalWrite(EN_PIN, 1);
-  delay(500);
+  delay(50);
 
 
 
- 
+  if (addr == arrayLength) {
+    for (;;)
+      ;
+  }
 
   addr++;
 }
