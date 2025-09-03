@@ -12,6 +12,7 @@
     - [Writing Data Attempt 2](#writing-data-attempt-2)
   - [Erasing data](#erasing-data)
   - [Saving a Text File](#saving-a-text-file)
+  - [Conclusions](#conclusions)
 
 
 ## Useful Links
@@ -152,6 +153,13 @@ The next step is to write to all 256 address I have access to. This will just me
 I then modified the read code to print the data in hex so it was easy to compare to the address.
 Aside from the first couple of address that I messed up when testing, only one address (0x80) was corrupted. For some reason address 0x80 (128 or 0b10000000) had all its bits cleared. Im not sure what caused this to mess up, this might have happened during the initial testing when the voltage timing wasn't correct.
 
+Here is a video of some data being programed and read back, the clicking sound is the relay thats needed for the 12V.
+
+<video width="640" height="360" controls>
+  <source src="./Images/ProgramEPROM.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## Erasing data
 
 This is done by exposing the chip to UV light. I don't have a UV light so I will use the sun. This is expected to take a week to fully erase. I will test it every few days to see it clearing.
@@ -166,3 +174,9 @@ This will be done by having a char array with the text and looping over each byt
 
 The code to write is found [WriteEPROM.ino](./Code/WriteEPROM/WriteEPROM.ino), this can take a string array up to 256 characters and write the data to an EPROM. This worked well, I then read back the data using [ReadEPROM.ino](./Code/ReadEPROM/ReadEPROM.ino). See [Serial.log](./Code/serial.log) for printout of the data I saved. 
 
+## Conclusions
+Interfacing with the EPROM is a pain, it needs 26 GPIO pins to access all the addresses. This is fine for a system that already has a 16bit address bus but is not practical for any modern microcontroller application.
+
+The programming was also inconvenient because of the non higher voltages involved and the data takes at least a week in the sun to properly erase. 
+
+But the window in the top does look cool
