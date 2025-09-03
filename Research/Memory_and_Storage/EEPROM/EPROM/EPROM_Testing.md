@@ -155,10 +155,9 @@ Aside from the first couple of address that I messed up when testing, only one a
 
 Here is a video of some data being programed and read back, the clicking sound is the relay thats needed for the 12V.
 
-<video width="640" height="360" controls>
-  <source src="./Images/ProgramEPROM.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[<img src="./Images/ProgramEPROM.png" width="400"
+/>](./Images/ProgramEPROM.mp4)
+
 
 ## Erasing data
 
