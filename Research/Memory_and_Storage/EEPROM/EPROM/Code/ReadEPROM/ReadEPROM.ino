@@ -32,7 +32,7 @@ const uint8_t GATE_EN_PIN = 9;  //Gate Out Enable, LOW to activate
 
 void setup() {
   Serial.begin(115200);
-  delay(2000);
+  delay(5000);
   Serial.println("Starting");
 
   //Setup both the data and address lines
@@ -56,7 +56,7 @@ void printDataBin() {
     Serial.print(digitalRead(DATA_PINS[7 - i]));
   }
 
-  Serial.println('b');
+  Serial.println();
 }
 
 
@@ -68,6 +68,13 @@ uint8_t printDataHex() {
   Serial.print("0x");
   Serial.println(data, HEX);
   return data;
+}
+void printDataChar() {
+  uint8_t data = 0;
+  for (uint8_t i = 0; i < 8; i++) {
+    data = data | (digitalRead(DATA_PINS[i])) << i;
+  }
+  Serial.print((char)data);
 }
 
 
@@ -91,13 +98,15 @@ void loop() {
   digitalWrite(EN_PIN, 0);       //Enable Chip
   digitalWrite(GATE_EN_PIN, 0);  //Enable Gate
   delay(10);
-  Serial.print("0x");
-  Serial.print(addr, HEX);
-  Serial.print(": ");
-  uint8_t readData = printDataHex();
-  if (addr != readData) {
-    Serial.println("ERROR: incorrect data");
-  }
+  // Serial.print("0x");
+  // Serial.print(addr, HEX);
+  // Serial.print(": ");
+  printDataBin();
+  // printDataHex();
+  // uint8_t readData = printDataHex();
+  // if (addr != readData) {
+  //   Serial.println("ERROR: incorrect data");
+  // }
 
   delay(10);                     //Split up the delay so the LEDs stay on
   digitalWrite(EN_PIN, 1);       //Enable Chip
@@ -105,7 +114,8 @@ void loop() {
   delay(10);
 
   if (addr == 0xFF) {
-    for (;;);
+    for (;;)
+      ;
   }
 
   addr++;
