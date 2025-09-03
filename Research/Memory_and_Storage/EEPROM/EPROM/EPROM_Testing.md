@@ -1,5 +1,19 @@
 # EPROM Testing
 
+- [EPROM Testing](#eprom-testing)
+  - [Useful Links](#useful-links)
+  - [Notes](#notes)
+    - [M27C512 EPROM](#m27c512-eprom)
+  - [First Test](#first-test)
+  - [Retrieve Data With Microcontroller](#retrieve-data-with-microcontroller)
+    - [Reading Data](#reading-data)
+  - [Writing Data](#writing-data)
+    - [Writing Data Attempt 1](#writing-data-attempt-1)
+    - [Writing Data Attempt 2](#writing-data-attempt-2)
+  - [Erasing data](#erasing-data)
+  - [Saving a Text File](#saving-a-text-file)
+
+
 ## Useful Links
 - [M27C512](https://www.aliexpress.com/item/1005009205345368.html), [Datasheet](https://media.digikey.com/pdf/data%20sheets/st%20microelectronics%20pdfs/m27c512.pdf)
 
@@ -141,4 +155,14 @@ Aside from the first couple of address that I messed up when testing, only one a
 ## Erasing data
 
 This is done by exposing the chip to UV light. I don't have a UV light so I will use the sun. This is expected to take a week to fully erase. I will test it every few days to see it clearing.
+
+After a day in the sun there was no change.
+
+## Saving a Text File
+The final thing I want to do is save text data to the EPROM. Due to the limited pin count with this setup I can only write 256 bits. I could create a program that stops every 256 bits and waits for the higher bits to be manually set with jumpers. Another option would be to use a 5V microcontroller with enough pins or use some sort of port expander. 
+
+For now I will just write use the first 256 bits and leave the expansion for a future project. 
+This will be done by having a char array with the text and looping over each byte. 
+
+The code to write is found [WriteEPROM.ino](./Code/WriteEPROM/WriteEPROM.ino), this can take a string array up to 256 characters and write the data to an EPROM. This worked well, I then read back the data using [ReadEPROM.ino](./Code/ReadEPROM/ReadEPROM.ino). See [Serial.log](./Code/serial.log) for printout of the data I saved. 
 
