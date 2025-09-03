@@ -2,7 +2,7 @@
 
 ## [Initial Research](./EEPROM_Initial_Research.md)
 
-## [EPROM Testing](EPROM_Testing.md)
+## [EPROM Testing](./EPROM/EPROM_Testing.md)
 # Project Ideas
 
 Start out with reading and writing simple data on a breadboard.
