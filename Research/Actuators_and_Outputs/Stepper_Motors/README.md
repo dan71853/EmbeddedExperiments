@@ -3,7 +3,6 @@
 - [Stepper Motors](#stepper-motors)
 - [Initial Research](#initial-research)
 - [Stepper Motor Testing](#stepper-motor-testing)
-  - [MOATECH Stepper](#moatech-stepper)
 
 
 # Initial Research
@@ -12,7 +11,7 @@ The [initial research](./Initial_Research.md) was focused on a motor suited for 
 
 # Stepper Motor Testing
 
-## MOATECH Stepper
+- [Pancake Stepper Motor (SP-35RC-810S)](./Pancake_Stepper_Motor_(SP-35RC-810S).md)
 
 
 
