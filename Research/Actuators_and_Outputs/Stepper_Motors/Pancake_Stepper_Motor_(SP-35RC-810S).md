@@ -5,6 +5,7 @@
 - [Initial Notes](#initial-notes)
   - [Motor and Driver](#motor-and-driver)
 - [Motor Stepping](#motor-stepping)
+- [Issue with Stepper Driver](#issue-with-stepper-driver)
 
 # Useful Links
 - [Aliexpress Page](https://www.aliexpress.com/item/1005005485719628.html#nav-specification)
@@ -75,7 +76,11 @@ void loop() {
 
 } 
 ```
+# Issue with Stepper Driver
 
+When I connected 5V to the MX1508 it started heating up and drawing max current. After some digging I found [this post](https://www.eevblog.com/forum/projects/mx1508-versus-mx1508rx/msg5308930/#msg5308930), it seems the chip I have is the MX1508RX which is not a stepper driver. 
+
+I have ordered some L293D H-bridges, these have a much better datasheet. Will continue testing when they arrive.
 
 
 
