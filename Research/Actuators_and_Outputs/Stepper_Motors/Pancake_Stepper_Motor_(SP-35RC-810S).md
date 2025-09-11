@@ -2,7 +2,9 @@
 
 - [Pancake Stepper Motor (SP-35RC-810S)](#pancake-stepper-motor-sp-35rc-810s)
 - [Useful Links](#useful-links)
-- [Motor and Driver Notes](#motor-and-driver-notes)
+- [Initial Notes](#initial-notes)
+  - [Motor and Driver](#motor-and-driver)
+- [Motor Stepping](#motor-stepping)
 
 # Useful Links
 - [Aliexpress Page](https://www.aliexpress.com/item/1005005485719628.html#nav-specification)
@@ -10,7 +12,8 @@
 - [Datasheet (page 6)](https://moatech.com/skin/board/gallery_pdt/catalog_2016.pdf)
 
 
-# Motor and Driver Notes
+# Initial Notes
+## Motor and Driver 
 The [Datasheet (page 6)](https://moatech.com/skin/board/gallery_pdt/catalog_2016.pdf) has some information, this seems to match the [Aliexpress Listing](https://www.aliexpress.com/item/1005005485719628.html#nav-specification).
 
 <img src="./Images/SP-35RC-810S Datasheet.png" width="600"/>
@@ -45,5 +48,39 @@ One of the main points of confusion is the naming convention of the motor pins, 
 Here is the stepper motor pinout, it follows the A-A+ convention. I have cut that connector off and just soldered on pin headers for now, I will change that to a JST connector in the future.
 
 <img src="./Images/SP-35RC-810S Pinout.webp" width="400"/>
+
+# Motor Stepping
+
+The step sequence for a bipolar stepper is quite simple. Both coils are energised at all times, this is a bit different to a uni polar motor where some of the coils don't need to be energised. For the bipolar motor a coil will either be energised in the positive or the negative direction. This means that A1 will always be opposite to A2. 
+
+<img src="./Images/StepSequence.jpg" height="500"/>
+
+The pin states can be found with this simple logic, this uses an array with the bit sequence and increments the index every step.
+Im using modulo to make sure that there is no index out of bounds.
+
+``` C++ 
+const bool bitSequence[4] = { 1, 1, 0, 0 };
+uint8_t stepIndex = 0;
+
+void loop() {
+  bool stateA1 = bitSequence[stepIndex];
+  bool stateA2 = !stateA1;
+  bool stateB1 = bitSequence[(stepIndex+1)%4];
+  bool stateB2 = !stateB1;
+
+  Serial.printf("%d %d %d %d\n",stateA1, stateA2, stateB1, stateB2 );
+
+  stepIndex++;
+  stepIndex = stepIndex++%4;
+
+} 
+```
+
+
+
+
+
+
+
 
 
