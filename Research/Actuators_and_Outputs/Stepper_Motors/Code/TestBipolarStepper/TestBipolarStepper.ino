@@ -26,6 +26,10 @@ void loop() {
   bool stateB2 = !stateB1;
   
   digitalWrite(pinA1, stateA1);
+  digitalWrite(pinA2, stateA2);
+  digitalWrite(pinB1, stateB1);
+  digitalWrite(pinB2, stateB2);
+
 
   Serial.printf("%d %d %d %d\n",stateA1, stateA2, stateB1, stateB2 );
 
@@ -33,5 +37,5 @@ void loop() {
   stepIndex = stepIndex++%4;
 
 
-  delay(1000);
+  delay(50); //Adjust to change speed, fastest speed is about 5ms per step
 }
