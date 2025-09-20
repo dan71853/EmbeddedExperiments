@@ -22,6 +22,8 @@ Here is the pinout and the function table for the CD74AC109E. The only output I 
 
 Here is the output from the binary counter, The top signal is the 555 timer clock output, followed the first and second bits of the counter. The counter is counting down as expected.  
 
+<img src="./Images/BinaryCounterSetup.jpg" height="500"/>
 
+Here is a picture of the ripple counter setup on a breadboard.
 
 
