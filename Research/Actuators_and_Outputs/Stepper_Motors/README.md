@@ -17,7 +17,7 @@ I plan on making a basic full step stepper driver using logic gates. This starts
 
 The next step is to make a 2 bit binary counter, notes on the counter can be found [here](./2BitRippleCounter.md).
 
-Next logic gates are used to create the 4 states needed for each pin, notes cn be found [here](./StepperLogicGates.md).
+Next logic gates are used to create the 4 states needed for each pin, notes can be found [here](./StepperLogicGates.md).
 
 The final step is to connect the motor to the existing circuit. This uses the same H-Bridge as used in [Pancake Stepper Motor (SP-35RC-810S)](./Pancake_Stepper_Motor_(SP-35RC-810S).md). I tested 2 different bipolar stepper motors, the results can be found [here](./Driving_Stepper_Motors.md).
 
