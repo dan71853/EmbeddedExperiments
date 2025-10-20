@@ -21,4 +21,16 @@
 
 <!-- ## Useful Commands/Shortcuts
 ## Pinouts/Diagrams
-## Common Issues -->
+-->
+## Common Issues 
+
+### Pico Upload Issue
+This error can happen when trying to upload for the first time
+``` 
+No accessible RP-series devices in BOOTSEL mode were found.
+but:
+RP2350 device at bus 3, address 10 appears to be in BOOTSEL mode, but picotool was unable to connect. Maybe try 'sudo' or check your permissions.
+```
+This can be fixed by copping [these rules](https://github.com/raspberrypi/picotool/blob/master/udev/60-picotool.rules) to /etc/udev/rules.d/ 
+
+`sudo cp 60-picotool.rules /etc/udev/rules.d/`
