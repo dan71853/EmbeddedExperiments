@@ -8,6 +8,7 @@
 
 ### Tools
 - [RPi SDK](https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html#content)
+- [Latest debugprobe_on_pico.uf2](https://github.com/raspberrypi/debugprobe/releases/latest)
 
 ### Datasheets
 - [Pico 2 W](https://datasheets.raspberrypi.com/picow/pico-2-w-datasheet.pdf)

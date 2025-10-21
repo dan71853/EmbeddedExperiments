@@ -20,3 +20,11 @@ RP2350 device at bus 3, address 10 appears to be in BOOTSEL mode, but picotool w
 - Instead copy [these rules](https://github.com/raspberrypi/picotool/blob/master/udev/60-picotool.rules) to /etc/udev/rules.d/ 
 - `sudo cp 60-picotool.rules /etc/udev/rules.d/`
 - This fixed the issue and the blink code uploaded 
+
+### Debug Example
+- Need to go to the [Debug with a second Pico](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf#debug-probe-with-pico-series) chapter.
+- Download the [latest debugprobe_on_pico.uf2](https://github.com/raspberrypi/debugprobe/releases/latest), I am using a Pico 1 so need to use the debugprobe_on_pico.uf2 
+- Boot pico while holding BOOTSEL and copy the .uf2 file onto the device
+- Problems when starting the debugger
+- libhidapi is missing, install with `sudo apt install libhidapi-hidraw0`
+- Might also need `sudo apt install gdb-multiarch` 
