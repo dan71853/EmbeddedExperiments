@@ -28,3 +28,18 @@ RP2350 device at bus 3, address 10 appears to be in BOOTSEL mode, but picotool w
 - Problems when starting the debugger
 - libhidapi is missing, install with `sudo apt install libhidapi-hidraw0`
 - Might also need `sudo apt install gdb-multiarch` 
+
+## 25/10/22
+### Fixing Debugger
+- Debugging is still not working, I now get this error `Error: unable to find a matching CMSIS-DAP device`
+- The getting started guide seems to say I don't need to manually install OpenOCD if using the VScode extension, but I installed it anyway with `sudo apt install openocd`
+- That didn't seem to change anything
+- Using `lsusb` to check if the pico 1 is flashed properly
+- I see `Bus 005 Device 004: ID 2e8a:000c Raspberry Pi Debugprobe on Pico (CMSIS-DAP)` So it is flashed correctly
+- I tried adding the rules a different way
+```
+sudo wget -O /etc/udev/rules.d/99-pico-debug.rules https://raw.githubusercontent.com/raspberrypi/openocd/master/contrib/60-openocd.rules
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+- This fixed the problem, The debugger now works and I can step through the code
+- Seems like there are some problems when trying to start a new debug session before closing the first, Looks like its best to stop any existing sessions
