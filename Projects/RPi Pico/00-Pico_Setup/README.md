@@ -25,6 +25,5 @@ Most of the project went smoothly except some of the rules needed to be set to u
 ## Related Documents
 - [Project Plan](./Notes/Project_Plan.md)
 - [Resources](./Notes/Resources.md)
-- [Work Log](./Notes/Work_Log-0.md)
-- [Checklist](./Notes/Checklist.md)
+- [Work Log](./Notes/Work_Log-0.md) 
 - [Testing Documents](./Notes/Testing-Final.md)
