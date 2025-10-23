@@ -27,3 +27,14 @@ The pin can be setup an read with these commands
 
 Here is the pin state as seen by the debugger, The top image is when the button is not pressed. This is reading as true as expected.
 
+
+## 25/10/24
+
+## Connecting Potentiometer
+
+- I had to add `hardware_adc` to the `target_link_libraries` section in CMakeList
+- Setup an analog read using the example
+- This was reading values from 0-4096 (12Bit ADC) but I noticed that the pot maxed out at about 80% of the turn
+- I discovered that this was because I was using Vsys as Vcc. I thought this was 3.3V but its closer to 4V.
+- I changed the pot Vcc to the 3.3V out of the pico and this fixed the problem
+- 

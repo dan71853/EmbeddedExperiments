@@ -46,7 +46,10 @@ pico_enable_stdio_usb(01-Pico_Serial_IO 0)
 
 # Add the standard library to the build
 target_link_libraries(01-Pico_Serial_IO
-        pico_stdlib pico_cyw43_arch_none)
+        pico_stdlib 
+        pico_cyw43_arch_none
+        hardware_adc
+        )
 
 # Add the standard include files to the build
 target_include_directories(01-Pico_Serial_IO PRIVATE

@@ -15,8 +15,8 @@ The goal of this project is to connect a button and a potentiometer to the Pico.
 ## Steps
 - [x] Create a new Pico project
 - [x] Connect a button to a digital input and read its state, confirm this with the debugger
-- [ ] Connect a potentiometer to an analog input and read this
-- [ ] Pool this data and send it via a serial port
+- [x] Connect a potentiometer to an analog input and read this
+- [ ] Poll this data and send it via a serial port
 - [ ] Connect the serial port to a PC and confirm it is the correct data
 - [ ] Change the digital input to be an external interrupt, and only send data to the PC when the button is pressed
   
