@@ -41,7 +41,7 @@ pico_set_program_name(01-Pico_Serial_IO "01-Pico_Serial_IO")
 pico_set_program_version(01-Pico_Serial_IO "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(01-Pico_Serial_IO 0)
+pico_enable_stdio_uart(01-Pico_Serial_IO 1) #Enabled this
 pico_enable_stdio_usb(01-Pico_Serial_IO 0)
 
 # Add the standard library to the build
