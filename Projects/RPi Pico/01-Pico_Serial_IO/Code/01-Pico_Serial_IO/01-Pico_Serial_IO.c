@@ -1,4 +1,4 @@
-#pragma GCC optimize ("O0") //Used to disable optimization, helpful for debugging
+// #pragma GCC optimize ("O0") //Used to disable optimization, helpful for debugging
 
 #include <stdio.h>
 #include "pico/stdlib.h"
@@ -9,14 +9,25 @@
 #define POT_PIN 26
 #define POT_ADC_INPUT 0
 
-void buttonCallback(uint gpio, uint32_t events){
+volatile bool bouncing = false; //Only safe to read when bouncing = false
 
-    bool buttonState = gpio_get(BTN_PIN);
-
-    uint16_t potReading = adc_read();
-
-    printf("Button is %s. Pot is %d\n ", buttonState ? "released" : "pressed", potReading);
+int64_t resetDebouncing(alarm_id_t id, __unused void *user_data){
+    bouncing=false;
+    return 0;
 }
+
+
+void buttonCallback(uint gpio, uint32_t events){
+    if(bouncing==false){
+        bouncing=true;
+        add_alarm_in_ms(4, &resetDebouncing, NULL, false);
+   
+        uint16_t potReading = adc_read();
+
+        printf("Button is Pressed, Pot is %d\n", potReading);
+    }
+}
+
 
 int main(){
     stdio_init_all();

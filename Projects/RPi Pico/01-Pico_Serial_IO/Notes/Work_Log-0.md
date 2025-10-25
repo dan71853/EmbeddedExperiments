@@ -50,3 +50,41 @@ Here is the pin state as seen by the debugger, The top image is when the button 
 - This is working now and the data is being printed to the Serial Monitor
 
 <img src="./Images/Test-Serial.png" height = "150">
+
+## 25/10/26
+- Need to attach the button to an interrupt, decided to look at the [example](https://github.com/raspberrypi/pico-examples/blob/master/gpio/hello_gpio_irq/hello_gpio_irq.c)
+- Loos pretty simple, uses `gpio_set_irq_enabled_with_callback()` to attach the pin to the callback
+- Want to detect on the falling edge
+- Also removed the onboard LED
+- Added the IRQ code, it seems to be triggering twice each time I press the button
+- Don't think its bouncing, it seems too consistent, need to check the callback with the debugger
+- I want to see what `uint gpio, uint32_t events)` these are, but the debugger says they are optimized out
+- Disabled the optimizer using `#pragma GCC optimize ("O0")`
+- When I press the button and break in the isr, `gpio = 16` and `event = 4`
+- This doesn't change so maybe it is bouncing
+- Checked with the scope, this confirmed it is bouncing
+
+<table>
+<tr>
+<img src="./Images/Test-ButtonBounce-raw.jpg" height="350"/>
+<img src="./Images/Test-ButtonBounce-1nF.jpg" height="350"/>
+</tr>
+</table>
+
+
+- The left picture is the noise on the button
+- Right has added a 1nF capacitor, this helps reduce some noise but is not enough
+- If I add more capacitance the rise time starts to get effected
+- I will do a combination of a capacitor and software debouncing with a timer
+- The right image is at 200us/div, so the bouncing lasts around 800us. I will have a 1ms debouncing timer
+- Will look at adding a timer using an alarm callback to set a flag
+- Will use `add_alarm_in_ms()`, this is safe to call in the IRQ
+- A 1ms delay was not enough time, 3 mostly worked. 4ms was reliable 
+- Can remove the read of the button in the IRQ as this will always be pressed
+- It seems like the alarm callback is being constantly called, looks like I had to return 0 in the alarm callback otherwise it can repeat 
+- I don't see any compile warning, there should be something as I did not return a value for a function which expects a int64_t return
+- Looks like I can enable warning by adding `add_compile_options(-Werror -Wall -Wextra -Wnull-dereference)` in the `CMakeList.txt` file. Make sure to add it below `pico_sdk_init()`
+- The compile warnings now show, it also triggers on any unused variables like in the callbacks
+- And the errors are underlined with red in VSCode 
+- I will disable this for now, but its good to know how to enable them
+- I also tested just the software debouncing without the capacitor, and it works fine with the 4ms delay
