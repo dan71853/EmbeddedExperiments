@@ -13,7 +13,8 @@ The goal of this project is to connect a button and a potentiometer to the Pico.
 - The button will be detected using an external interrupt
 
 ## Scope Changes
-- Will not use an FTDI controller, instead will send serial data through the debugger. See [Using UART](Work_Log-0.md#using-uart).
+- Will not use an FTDI controller, instead will send serial data through the debugger. See [Using UART](Work_Log-0.md#using-uart)
+- Need to add debouncing to the button when using interrupts
 
 ## Steps
 - [x] Create a new Pico project
@@ -21,9 +22,7 @@ The goal of this project is to connect a button and a potentiometer to the Pico.
 - [x] Connect a potentiometer to an analog input and read this
 - [x] Poll this data and send it via a serial port
 - [x] Connect the serial port to a PC and confirm it is the correct data
-- [ ] Change the digital input to be an external interrupt, and only send data to the PC when the button is pressed
-
-
+- [x] Change the digital input to be an external interrupt, and only send data to the PC when the button is pressed
   
 ## Tools
  

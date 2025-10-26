@@ -52,6 +52,8 @@ Here is the pin state as seen by the debugger, The top image is when the button 
 <img src="./Images/Test-Serial.png" height = "150">
 
 ## 25/10/26
+### Adding External Interrupt
+
 - Need to attach the button to an interrupt, decided to look at the [example](https://github.com/raspberrypi/pico-examples/blob/master/gpio/hello_gpio_irq/hello_gpio_irq.c)
 - Loos pretty simple, uses `gpio_set_irq_enabled_with_callback()` to attach the pin to the callback
 - Want to detect on the falling edge
@@ -70,7 +72,6 @@ Here is the pin state as seen by the debugger, The top image is when the button 
 <img src="./Images/Test-ButtonBounce-1nF.jpg" height="350"/>
 </tr>
 </table>
-
 
 - The left picture is the noise on the button
 - Right has added a 1nF capacitor, this helps reduce some noise but is not enough
