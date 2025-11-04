@@ -1,3 +1,6 @@
+#pragma GCC optimize ("O0") //Used to disable optimization, helpful for debugging
+
+
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/clocks.h"
@@ -8,11 +11,10 @@ int main()
 {
     stdio_init_all();
 
-   volatile uint f_clk_sys = frequency_count_khz(CLOCKS_FC0_SRC_VALUE_CLK_SYS);
+ 
 
-    set_sys_clock_pll(1176, 7,7);
+    set_sys_clock_khz(24000, false);
 
- f_clk_sys = frequency_count_khz(CLOCKS_FC0_SRC_VALUE_CLK_SYS);
 
 
     //Setup LED pin as output

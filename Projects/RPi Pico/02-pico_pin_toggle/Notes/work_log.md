@@ -14,7 +14,7 @@
 - I removed all delay and the LED did not appear to turn on
 - I looked with the scope and there was a 3.3V 'square wave'
 
-<img src="./Images/C_Arm_API-30MHz.jpg" width=600>
+<img src="./Images/C_Arm_API-CLK_150MHz.jpg" width=600>
 
 - This was around 30MHz and was not very square wave shaped
 - My scope is 100MHz so there may be some aliasing going on, I will need to look into this further
@@ -23,6 +23,7 @@
 
 ### Lowering Clock Speed
 - [Here](https://forums.raspberrypi.com/viewtopic.php?t=302191) is some info on the clock speed, look like the speed should be 130MHz
+- Further testing shows that the default clock is 150MHz
 - I added `set_sys_clock_khz(130000,true);` and the square wave looked the same
 - I also checked the return of this function and it was true so it is being set correctly
 - There is some confusing information in the api docs, it says `not all clock frequencies are possible` but no info on what is available
@@ -46,5 +47,27 @@ $$=130MHz$$
 
 - However when running `set_sys_clock_pll()` the pico locks up, need to investigate why
 
+
+## 4/11/2025
+### Investigate Undercooking
+
+- I changed the function back to `set_sys_clock_khz(24000, false);` as I know that 24000 should be possible and this is working as expected
+- This is confirmed by using `frequency_count_khz()`
+- Im not quite sure whats wrong with the pll function, I think I am not understanding vco_freq properly
+- With the sys clock set to 24MHz, the output square wave is a lot slower anbd actually looks like a square wave
+- There is a bit of ripple on the transitions but I'll ignore this for now
+
+<img src="./Images/C_Arm_API-CLK_24MHz.jpg" width=600>
+
+- The output square wave has a frequency of 6MHz, This means its taking about 4 clock cycles to set then clear the pin
+- Notice the duty cycle is 25%, this means that it takes 3 times as long to set the pin as to clear it
+- This is already a lot faster then I expected, as I know the `gpio_put()` function does call at least 1 other function
+- Out of curiosity I disabled GCC optimizations using `#pragma GCC optimize ("O0") `
+- This had a dramatic effect, with the pin frrequency dropping dramatically down to 461kHz
+
+<img src="./Images/C_Arm_API-CLK_24MHz-Unoptimised.jpg" width=600>
+
+- Note the duty cycle is close to 50% but not quite, it looks like there is a couple cycled difference
+- Next I will look at the assembly generated for both versions
 
 
