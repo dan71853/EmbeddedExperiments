@@ -71,3 +71,45 @@ $$=130MHz$$
 - Next I will look at the assembly generated for both versions
 
 
+## 6/11/2025
+### Disassembly View
+- I can look at the assembly code while debugging using `Open Disassembly View` while the debugger is paused
+- I can also view the `./build/02-c_arm_api.dis` file
+- I am looking at the main loop, here is the .dis file
+```
+1000025c:	f04f 0100 	mov.w	r1, #0
+10000260:	ec42 3040 	gpioc_bit_out_put r3, r2
+10000264:	ec41 3040 	gpioc_bit_out_put r3, r1
+10000268:	e7fa      	b.n	10000260 <main+0x2c>
+```
+- The dis file does not seem to show everything, like gpioc_bit_out_put not the final assembly
+- I have combined information from both the .dis and the disassembly viewer below
+- For some reason some of the data is in HEX and some in DEC
+```
+0x1000025c: <main+40>       mov.w	r1, #0
+0x10000260: <main+44>	 	mcrr    0, 4, r3, r2, cr0
+0x10000264: <main+48>	 	mcrr    0, 4, r3, r1, cr0
+0x10000268:	<main+42>       b.n	0x10000260 <main+44>
+```
+- Next I want to look at what each instruction does, so I looked for the reference manual
+- The RP2350 uses Armv8-M, but I found multiple slightly different reverence manuals by arm all with the same name
+- [This one](https://kib.kiev.ua/x86docs/ARM/ARMARMv8m/DDI0553B_o_armv8m_arm.pdf) looked like the latest
+- I am now going over the instructions from the disassembly, starting with mov.w
+- MOV can be found in chapter [C2.4.119](https://kib.kiev.ua/x86docs/ARM/ARMARMv8m/DDI0553B_o_armv8m_arm.pdf#mov-%28immediate%29.2)
+  - The [Glossary](https://kib.kiev.ua/x86docs/ARM/ARMARMv8m/DDI0553B_o_armv8m_arm.pdf#glos%3AAAPCS) is very useful
+  - The MOV is Move (intermediate) which moves a value to a register
+  - An intermediate value is `A value that is encoded directly in the instruction`, so basically a hardcoded number 
+  - The .w stands for wide which means the instruction is encoded in 32-bits, .n is narrow for 16-bits. More information can be found in [chapter C1.2.5, section R<sub>QZDB </sub>](https://kib.kiev.ua/x86docs/ARM/ARMARMv8m/DDI0553B_o_armv8m_arm.pdf#subsection.539)
+  - So this instruction moves the number 0 to register 1
+- Next is mcrr, this can be found in chapter [C2.4.116](https://kib.kiev.ua/x86docs/ARM/ARMARMv8m/DDI0553B_o_armv8m_arm.pdf#subsection.3497)
+  - This is Move to `Coprocessor from two Registers`
+  - The coprocessor register is not in the arm reference manual, instead you have to look in the [rp2350 datasheet ](https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf#%5B%7B%22num%22%3A104%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C115%2C693.322%2Cnull%5D)
+
+
+<!-- look at gpioc_bit_out_xor -->
+
+
+
+
+
+
