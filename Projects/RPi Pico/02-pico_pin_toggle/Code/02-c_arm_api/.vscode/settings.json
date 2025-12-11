@@ -47,6 +47,9 @@
         "functional": "cpp",
         "tuple": "cpp",
         "type_traits": "cpp",
-        "utility": "cpp"
-    }
+        "utility": "cpp",
+        "stdio.h": "c",
+        "cstdint": "c"
+    },
+    "cortex-debug.variableUseNaturalFormat": true
 }
