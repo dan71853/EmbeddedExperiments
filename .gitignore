@@ -1,1 +1,29 @@
 *~$*
+
+
+# ---- STM32 ----
+build/
+Debug/
+Release/
+*.o
+*.elf
+*.map
+*.hex
+*.bin
+*.axf
+
+ 
+.settings/
+.project
+.cproject
+.loadpath
+
+ 
+Backup/
+*.bak
+*.log
+*.ioc.xml   # CubeMX 6.x duplicate file
+
+ 
+Middlewares/Third_Party/FreeRTOS/Source/portable/*/GCC/*.d
+Drivers/*/*/*.d
