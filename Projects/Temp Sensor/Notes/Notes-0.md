@@ -33,4 +33,10 @@
 - I can now send data using HAL_UART_Transmit()
 - I tried sending data from the PC to the micro, this wasn't working because cat can only read
 - I had to install screen, this worked with `screen /dev/ttyUSB0 115200`
+  - Close screen with Ctrl+A  k
 - I can listen to data with HAL_UART_Receive()
+
+## 14/12/2025
+### DHT11 Temperature Sensor
+- I will need some sort of timer for a timeout when waiting 
+- Can use HAL_GetTick() to get the current count in milliseconds
