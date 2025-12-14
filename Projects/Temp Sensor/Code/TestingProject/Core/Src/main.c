@@ -24,6 +24,7 @@
 /* USER CODE END Includes */
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
@@ -31,7 +32,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define TEMP_PORT GPIOB
+#define TEMP_PIN GPIO_PIN_11
+#define TEMP_TIMEOUT 100
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -55,7 +58,7 @@ static void MX_USART1_UART_Init(void);
 
 //
 void setTempPinOutput(bool isOutput);
-
+void print(char *text);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -96,7 +99,7 @@ int main(void) {
 	setTempPinOutput(false);
 	HAL_UART_Transmit(&huart1, txBuffer, txBufferLen, 100);
 	uint32_t timer = HAL_GetTick();
-	char buffer[16];
+
 	/* USER CODE END 2 */
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
@@ -109,19 +112,61 @@ int main(void) {
 //	     HAL_UART_Receive(&huart1, buffer, sizeof(buffer), 100);
 //	     HAL_UART_Transmit(&huart1, buffer, sizeof(buffer), 100);
 //		if (HAL_GetTick() - timer > 1000) {
+		HAL_Delay(1000);
+		print("Starting\r\n");
+		//Pull pin low for 20ms
+		setTempPinOutput(true);
+		HAL_GPIO_WritePin(TEMP_PORT, TEMP_PIN, 0);
+		HAL_Delay(20);
+		//Pull pin high and start reading, pin will go low then high for 80us to show start
+		setTempPinOutput(false);
+		print("Waiting\r\n");
+		timer = HAL_GetTick();
+		while (HAL_GPIO_ReadPin(TEMP_PORT, TEMP_PIN)) {
+			if (HAL_GetTick() - timer > TEMP_TIMEOUT) {
+				print("Timeout\r\n");
+				break;
+			}
+		}
+		print("H to L\r\n");
+		timer = HAL_GetTick();
+		while (!HAL_GPIO_ReadPin(TEMP_PORT, TEMP_PIN)) {
+			if (HAL_GetTick() - timer > TEMP_TIMEOUT) {
+				print("Timeout\r\n");
+				break;
+			}
+		}
+		print("L to H\r\n");
+		timer = HAL_GetTick();
+		while (HAL_GPIO_ReadPin(TEMP_PORT, TEMP_PIN)) {
+			if (HAL_GetTick() - timer > TEMP_TIMEOUT) {
+				print("Timeout\r\n");
+				break;
+			}
+		}
+		print("H to L\r\n");
+		print("Ready\r\n");
+
+		//Loop over all bits
+		uint8_t count = 0;
+		while(count < 10){
 			timer = HAL_GetTick();
+			while (!HAL_GPIO_ReadPin(TEMP_PORT, TEMP_PIN)) {
+				if (HAL_GetTick() - timer > TEMP_TIMEOUT) {
+					print("Timeout\r\n");
+					break;
+				}
+			}
+			print("L to H\r\n");
 
-			HAL_Delay(1000);
-
-			setTempPinOutput(true);
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 0);
-			HAL_Delay(20);
-			setTempPinOutput(false);
+			 HAL_Delay_us(50);
 
 
-			HAL_Delay(1000);
-//			sprintf(buffer, "Tick: %lu\n", HAL_GetTick());
-//			HAL_UART_Transmit(&huart1, (uint8_t*) buffer, sizeof(buffer), 100);
+
+			count++;
+		}
+
+		HAL_Delay(1000);
 
 //		}
 	}
@@ -227,15 +272,20 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
-void setTempPinOutput(bool isOutput){
+void setTempPinOutput(bool isOutput) {
 	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 	GPIO_InitStruct.Pin = GPIO_PIN_11;
-	GPIO_InitStruct.Mode = isOutput? GPIO_MODE_OUTPUT_OD:GPIO_MODE_INPUT;
+	GPIO_InitStruct.Mode = isOutput ? GPIO_MODE_OUTPUT_OD : GPIO_MODE_INPUT;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 }
 
+void print(char text[]) {
+	char buffer[16];
+	strcpy(buffer, text);
+	HAL_UART_Transmit(&huart1, (uint8_t*) buffer, sizeof(buffer), 100);
+}
 /* USER CODE END 4 */
 
 /**

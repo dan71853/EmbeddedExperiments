@@ -51,3 +51,8 @@
 - The pin is then set back to input and the pin pulled high
 - I can see the response of the DHT with the scope so this is all working correctly
 - Next step is reading the data
+- Here is a [guide](https://controllerstech.com/using-dht11-sensor-with-stm32/), it shows a way of reading the 1 or 0 from the response
+- This is blocking but I will do this for now
+- Added 3 waiting while loops to detect the first 2 80us LOW then HIGH pulse
+- Then want to go into a big loop where I detect the rising edge, wait for 50us then read the pin
+- If the pin is LOW then the bit is 0, else its 1
