@@ -38,5 +38,16 @@
 
 ## 14/12/2025
 ### DHT11 Temperature Sensor
+- [DHT11 Datasheet](https://www.mouser.com/datasheet/2/758/DHT11-Technical-Data-Sheet-Translated-Version-1143054.pdf)
 - I will need some sort of timer for a timeout when waiting 
 - Can use HAL_GetTick() to get the current count in milliseconds
+- Now I need to look at the datasheet
+- There is already a 10k pullup resistor on the data line, a 5K is recommended but this should be fine
+- The sensor uses Single-bus data format
+  - Will bit-bang it to start with
+  - I will need to have a pin swap between input and output open drain
+- Ive made some code that starts as input so the pin is pulled high by the pullup resistor
+- The pin is then set as output with open drain and the pin is pulled low for 20ms
+- The pin is then set back to input and the pin pulled high
+- I can see the response of the DHT with the scope so this is all working correctly
+- Next step is reading the data

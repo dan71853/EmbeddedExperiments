@@ -23,6 +23,7 @@
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
 #include <stdio.h>
+#include <stdbool.h>
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
@@ -52,9 +53,9 @@ static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
-void setTempInput() {
+//
+void setTempPinOutput(bool isOutput);
 
-}
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -92,7 +93,7 @@ int main(void) {
 	MX_GPIO_Init();
 	MX_USART1_UART_Init();
 	/* USER CODE BEGIN 2 */
-
+	setTempPinOutput(false);
 	HAL_UART_Transmit(&huart1, txBuffer, txBufferLen, 100);
 	uint32_t timer = HAL_GetTick();
 	char buffer[16];
@@ -107,12 +108,22 @@ int main(void) {
 //		HAL_UART_Transmit(&huart1, txBuffer, txBufferLen, 100);
 //	     HAL_UART_Receive(&huart1, buffer, sizeof(buffer), 100);
 //	     HAL_UART_Transmit(&huart1, buffer, sizeof(buffer), 100);
-		if (HAL_GetTick() - timer > 500) {
+//		if (HAL_GetTick() - timer > 1000) {
 			timer = HAL_GetTick();
-			sprintf(buffer, "Tick: %lu\n", HAL_GetTick());
-			HAL_UART_Transmit(&huart1, (uint8_t*) buffer, sizeof(buffer), 100);
 
-		}
+			HAL_Delay(1000);
+
+			setTempPinOutput(true);
+			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, 0);
+			HAL_Delay(20);
+			setTempPinOutput(false);
+
+
+			HAL_Delay(1000);
+//			sprintf(buffer, "Tick: %lu\n", HAL_GetTick());
+//			HAL_UART_Transmit(&huart1, (uint8_t*) buffer, sizeof(buffer), 100);
+
+//		}
 	}
 	/* USER CODE END 3 */
 }
@@ -216,6 +227,14 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
+void setTempPinOutput(bool isOutput){
+	GPIO_InitTypeDef GPIO_InitStruct = { 0 };
+	GPIO_InitStruct.Pin = GPIO_PIN_11;
+	GPIO_InitStruct.Mode = isOutput? GPIO_MODE_OUTPUT_OD:GPIO_MODE_INPUT;
+	GPIO_InitStruct.Pull = GPIO_NOPULL;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+}
 
 /* USER CODE END 4 */
 
