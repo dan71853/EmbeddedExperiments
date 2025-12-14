@@ -18,7 +18,8 @@ Release/
 .cproject
 .loadpath
 
- 
+.metadata/
+
 Backup/
 *.bak
 *.log
