@@ -157,10 +157,8 @@ int main(void)
 //		print("Ready\r\n");
 
 //Loop over all bits
-		const uint8_t arrayLen = 40;
-		uint8_t arrayBuffer[arrayLen];
-		uint8_t count = 0;
-		while (count < arrayLen) {
+		uint8_t temperatureData[5]={0};
+		for ( uint8_t i = 0;  i < 40; ++ i) {
 			timer = HAL_GetTick();
 			while (!HAL_GPIO_ReadPin(TEMP_PORT, TEMP_PIN)) {
 				if (HAL_GetTick() - timer > TEMP_TIMEOUT) {
@@ -168,19 +166,25 @@ int main(void)
 					break;
 				}
 			}
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, 1);
 //			print("L to H\r\n");
 			delayUs(40);
 			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, 0);
 //			HAL_Delay(1);
 
-			arrayBuffer[count] = HAL_GPIO_ReadPin(TEMP_PORT, TEMP_PIN);
+
 			if(HAL_GPIO_ReadPin(TEMP_PORT, TEMP_PIN)){
+				temperatureData[i/8] |= 1<<((7-i)%8);
 				delayUs(40);
 			}
 
-			count++;
 		}
+
+		//checksum
+		if(temperatureData[0]+temperatureData[1]+temperatureData[2]+temperatureData[3] != temperatureData[4]){
+			print("checksum Error\r\n");
+		}
+		float temperature = temperatureData[2] + temperatureData[3]/10.0;
+		float humidity = temperatureData[0] + temperatureData[1]/10.0;
 
 		HAL_Delay(2000);
 //		}
@@ -323,10 +327,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0|GPIO_PIN_11, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_11, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PB0 PB11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_11;
+  /*Configure GPIO pin : PB11 */
+  GPIO_InitStruct.Pin = GPIO_PIN_11;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

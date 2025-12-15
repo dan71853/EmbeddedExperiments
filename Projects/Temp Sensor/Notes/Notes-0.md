@@ -80,5 +80,16 @@
   - When the bit is 1, the code needs to wait a bit because the waiting while loop detects a high and thinks it is the start
   - I will need to add an extra 40us delay after a 1 bit is read
 - This is all working now, I can read all 40 bits
-  - I have confirmed the first 8 with the scope
+  - I have confirmed the first 8 bits with the scope
  
+### Processing DHT11 signal
+- Now I need to process the data, currently its stored in a 40 long uint array
+- The data is sent as `8bit integral RH data + 8bit decimal RH data + 8bit integral T data + 8bit decimal T
+data + 8bit check sum` and the highest bit is sent first
+- For now I will store the 5 bytes in an array and bit shift the data in based off the index
+
+<img src="./Images/TempSen-RawData.png" height = 200>
+
+- Here is the data showing 51.5% and 24.2deg  
+- The checksum is the first 4 bytes added together and this is indeed 82 
+- This is all working fine now, I am saving the temperature and humidity as floats for now
