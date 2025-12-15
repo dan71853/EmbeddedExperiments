@@ -93,3 +93,15 @@ data + 8bit check sum` and the highest bit is sent first
 - Here is the data showing 51.5% and 24.2deg  
 - The checksum is the first 4 bytes added together and this is indeed 82 
 - This is all working fine now, I am saving the temperature and humidity as floats for now
+
+### DS1302 Real Time Clock
+- [Datasheet](https://www.analog.com/media/en/technical-documentation/data-sheets/DS1302.pdf)
+- Next im looking at the real time clock
+- [This github repo](https://github.com/cristobalgc/STM32_DS1302_LIBRARY) has existing code, I will just use it to get started
+- Setting up SPI as a half duplex master
+  - Had to change it to LSB first
+  - Setting a clock prescaler of 64 to give a clock frequency of 1.25MHz
+- I got SPI transmit to sent 2 bytes
+- I made some code with transmit then receive and connected the RTC
+- The return data on the scope looks very messed up, will need to investigate further 
+
