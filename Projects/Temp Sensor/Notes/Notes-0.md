@@ -54,5 +54,31 @@
 - Here is a [guide](https://controllerstech.com/using-dht11-sensor-with-stm32/), it shows a way of reading the 1 or 0 from the response
 - This is blocking but I will do this for now
 - Added 3 waiting while loops to detect the first 2 80us LOW then HIGH pulse
-- Then want to go into a big loop where I detect the rising edge, wait for 50us then read the pin
+- Then want to go into a big loop where I detect the rising edge, wait for 40us then read the pin
 - If the pin is LOW then the bit is 0, else its 1
+
+## 15/12/2025
+### DHT11 Temperature Sensor Timing
+- I need to delay for 40us, but only have a millisecond timer and delay
+- Would like to use [DWT](https://deepbluembedded.com/stm32-delay-microsecond-millisecond-utility-dwt-delay-timer-delay/) but the STM32 im using doesn't have this
+- Will have to use a timer instead, here is a better [guide](https://blog.embeddedexpert.io/?p=3323)
+  - I'm on a 72MHz clock so I have to modify some fields
+  - I added the done but I just getting all ones as the result
+- I think there is something wrong with the timer, I will just toggle a pin see if the delay is correct
+  - Tested with toggling a pin every with the microsecond delay and it works fine for a delay greater than 5us
+  - Will add a second output, and have this one go high  when the low to high is detected
+  - Then go low when the timer goes off
+  - Noticed that the delay starts 100ms late, I think something is timing out
+  - It was the debug prints that I had added that were causing all the problems
+ 
+<details>
+
+<summary>Here is the output on the scope with the print lines removed</summary>
+<img src="./Images/TempSen-Timing.jpg" height = 600>
+</details>
+- This shows the correct timing however I notice that there is a problem with last bit on the screen
+  - When the bit is 1, the code needs to wait a bit because the waiting while loop detects a high and thinks it is the start
+  - I will need to add an extra 40us delay after a 1 bit is read
+- This is all working now, I can read all 40 bits
+  - I have confirmed the first 8 with the scope
+ 
