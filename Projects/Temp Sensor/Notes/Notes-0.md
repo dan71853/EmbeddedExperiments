@@ -76,6 +76,7 @@
 <summary>Here is the output on the scope with the print lines removed</summary>
 <img src="./Images/TempSen-Timing.jpg" height = 600>
 </details>
+
 - This shows the correct timing however I notice that there is a problem with last bit on the screen
   - When the bit is 1, the code needs to wait a bit because the waiting while loop detects a high and thinks it is the start
   - I will need to add an extra 40us delay after a 1 bit is read
@@ -105,3 +106,16 @@ data + 8bit check sum` and the highest bit is sent first
 - I made some code with transmit then receive and connected the RTC
 - The return data on the scope looks very messed up, will need to investigate further 
 
+## 16/12/20025
+### Debugging DS1302
+- I connected the scope back and here is the result
+  
+<img src="./Images/RTC-ReturnError.jpg" height = 400>
+
+- Ot looks like the return data starts being sent then the pin starts floating
+- There is a 40k internal pulldown which may explain the slow drop off but im not sure why this is happening
+- First I will check if the initial transmit packet is correct, I was just sending 0x83 which I think should be read the minutes field
+- Decoding the bits from left to right on the scope give 0b11000001 which is 0xC1, If the bits are reversed this is 0x83 
+  - This makes sense as I had set it to send the LSB bit first
+  - Looking at the datasheet I think that it is LSB first, but the hex codes in the Register table are flipped to work with a MSB first
+  - I will flip this and see the result

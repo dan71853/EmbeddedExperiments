@@ -128,11 +128,10 @@ int main(void) {
 //		uint8_t spiBuffer[2] = {0xFF, 0b01010101};
 //			HAL_SPI_Transmit(&hspi1, spiBuffer, 2, 100);
 
-			uint8_t spiBuffer[1] = { 0x83 };
-			uint8_t spiReciveBuffer[1]={0};
+			uint8_t spiBuffer[1] = { 0x81 };
+			uint8_t spiReciveBuffer[1] = { 0 };
 			HAL_SPI_Transmit(&hspi1, spiBuffer, 1, 100);
 			HAL_SPI_Receive(&hspi1, spiReciveBuffer, 1, 100);
-
 
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
 
@@ -272,7 +271,7 @@ static void MX_SPI1_Init(void) {
 	hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
 	hspi1.Init.NSS = SPI_NSS_SOFT;
 	hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
-	hspi1.Init.FirstBit = SPI_FIRSTBIT_LSB;
+	hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
 	hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
 	hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
 	hspi1.Init.CRCPolynomial = 10;
